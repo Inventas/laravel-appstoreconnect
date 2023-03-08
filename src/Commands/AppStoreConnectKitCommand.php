@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Inventas\AppStoreConnectKit\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class AppStoreConnectKitCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-appstoreconnect';
 
     public $description = 'My command';
 
