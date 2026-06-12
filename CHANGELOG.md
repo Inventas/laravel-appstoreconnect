@@ -4,7 +4,7 @@ All notable changes to `laravel-appstoreconnect` will be documented in this file
 
 ## Unreleased
 
-- Align GitHub Actions with the supported PHP 8.3 and Laravel 12/13 test matrix.
+- Align GitHub Actions with the supported PHP 8.3 and Laravel 12/13 test matrix on Ubuntu.
 - Support older `nette/php-generator` versions selected by the prefer-lowest CI matrix.
 
 ## 0.1.0 - 2026-06-12
