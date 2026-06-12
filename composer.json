@@ -51,7 +51,8 @@
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse --memory-limit=1G",
-        "test": "vendor/bin/pest",
+        "test": "vendor/bin/pest --exclude-group=integration",
+        "test-integration": "vendor/bin/pest --group=integration",
         "test-coverage": "vendor/bin/pest --coverage --coverage-html build/coverage --coverage-clover build/logs/clover.xml --coverage-text=build/coverage.txt",
         "format": "vendor/bin/pint",
         "generate-sdk": [

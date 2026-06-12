@@ -1,4 +1,5 @@
 .idea
+.env.appstoreconnect.local
 .phpunit.result.cache
 .phpunit.cache
 build

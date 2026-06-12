@@ -22,6 +22,7 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
+        config()->set('appstoreconnect.key_type', 'team');
         config()->set('appstoreconnect.key_id', 'TESTKEY123');
         config()->set('appstoreconnect.issuer_id', '00000000-0000-0000-0000-000000000000');
         config()->set('appstoreconnect.private_key', <<<'KEY'

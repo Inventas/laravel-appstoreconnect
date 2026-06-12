@@ -25,10 +25,10 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'key_type' => env('APPSTORECONNECT_KEY_TYPE', 'team'),
     'key_id' => env('APPSTORECONNECT_KEY_ID'),
     'issuer_id' => env('APPSTORECONNECT_ISSUER_ID'),
     'private_key' => env('APPSTORECONNECT_PRIVATE_KEY'),
-    'openapi_spec_path' => base_path('vendor/inventas/laravel-appstoreconnect/openapi.oas.json'),
 ];
 ```
 
@@ -70,6 +70,25 @@ The generated SDK is expected to pass strict generated-code analysis:
 ```bash
 composer test
 ```
+
+Live App Store Connect authentication tests are opt-in and skipped by default unless local credentials are present. Create an untracked `.env.appstoreconnect.local` file in the project root:
+
+```dotenv
+APPSTORECONNECT_KEY_ID=ABC123DEFG
+APPSTORECONNECT_KEY_TYPE=team
+APPSTORECONNECT_ISSUER_ID=00000000-0000-0000-0000-000000000000
+APPSTORECONNECT_PRIVATE_KEY="-----BEGIN EC PRIVATE KEY-----\n...\n-----END EC PRIVATE KEY-----"
+```
+
+Then run:
+
+```bash
+composer test-integration
+```
+
+For individual API keys, use `APPSTORECONNECT_KEY_TYPE=individual` and omit `APPSTORECONNECT_ISSUER_ID`; individual JWTs use `sub=user` instead of `iss`.
+
+If Apple returns `401 NOT_AUTHORIZED`, verify that `APPSTORECONNECT_KEY_ID` matches the `AuthKey_<KEY_ID>.p8` filename, `APPSTORECONNECT_KEY_TYPE` matches the key kind, `APPSTORECONNECT_ISSUER_ID` is the App Store Connect issuer UUID and not the team ID for team keys, and the API key is active for the App Store Connect API account you are testing.
 
 ## Changelog
 
