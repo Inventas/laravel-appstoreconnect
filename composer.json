@@ -16,44 +16,49 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "illuminate/contracts": "^10.0",
+        "php": "^8.2",
+        "illuminate/contracts": "^12.39 || ^13.0",
         "lcobucci/jwt": "^5.0",
-        "sammyjo20/saloon": "^2.0",
-        "sammyjo20/saloon-laravel": "^2.0",
-        "spatie/laravel-data": "^3.1",
-        "spatie/laravel-package-tools": "^1.14.0"
+        "saloonphp/laravel-plugin": "^4.3",
+        "saloonphp/saloon": "^4.0",
+        "spatie/laravel-data": "^4.23",
+        "spatie/laravel-package-tools": "^1.93"
     },
     "require-dev": {
-        "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^7.9",
-        "nunomaduro/larastan": "^2.0.1",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-arch": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
+        "crescat-io/saloon-sdk-generator": "^1.6",
+        "larastan/larastan": "^3.10",
+        "laravel/pint": "^1.25",
+        "nunomaduro/collision": "^8.9",
+        "orchestra/testbench": "^10.9 || ^11.0",
+        "pestphp/pest": "^4.7",
+        "pestphp/pest-plugin-arch": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.1",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26"
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "Inventas\\AppStoreConnectKit\\": "src",
-            "Inventas\\AppStoreConnectKit\\Database\\Factories\\": "database/factories"
+            "Inventas\\AppStoreConnectKit\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
+            "Inventas\\AppStoreConnectKit\\CodeGeneration\\": "code-generation",
             "Inventas\\AppStoreConnectKit\\Tests\\": "tests"
         }
     },
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
-        "analyse": "vendor/bin/phpstan analyse",
+        "analyse": "vendor/bin/phpstan analyse --memory-limit=1G",
         "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
+        "test-coverage": "vendor/bin/pest --coverage --coverage-html build/coverage --coverage-clover build/logs/clover.xml --coverage-text=build/coverage.txt",
+        "format": "vendor/bin/pint",
+        "generate-sdk": [
+            "@php bin/generate-sdk.php",
+            "vendor/bin/pint src/Api --quiet"
+        ],
+        "generate-sdk-dry": "@php bin/generate-sdk.php --dry"
     },
     "config": {
         "sort-packages": true,
@@ -72,6 +77,5 @@
             }
         }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true
 }

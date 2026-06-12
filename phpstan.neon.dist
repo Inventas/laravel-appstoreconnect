@@ -4,11 +4,9 @@ includes:
 parameters:
     level: 4
     paths:
+        - bin/generate-sdk.php
+        - code-generation
         - src
-        - config
-        - database
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
-    checkMissingIterableValueType: false
-

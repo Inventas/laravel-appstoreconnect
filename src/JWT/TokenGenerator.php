@@ -12,32 +12,29 @@ use Lcobucci\JWT\UnencryptedToken;
 
 class TokenGenerator
 {
-
     public function issue(
         string $keyIdentifier,
         string $issuer,
         string $privateKey,
         ?array $scope = null
-    ): UnencryptedToken
-    {
-
+    ): UnencryptedToken {
         $audience = 'appstoreconnect-v1';
 
         $privateKey = str_replace('\\n', "\n", $privateKey);
 
         $key = InMemory::plainText($privateKey);
 
-        return (new JwtFacade())->issue(
-            new Sha256(),
+        return (new JwtFacade)->issue(
+            new Sha256,
             $key,
             static fn (
                 Builder $builder,
                 DateTimeImmutable $issuedAt
             ): Builder => $builder
                 ->issuedBy($issuer)
-                ->withHeader("alg", "ES256")
-                ->withHeader("kid", $keyIdentifier)
-                ->withHeader("typ", "JWT")
+                ->withHeader('alg', 'ES256')
+                ->withHeader('kid', $keyIdentifier)
+                ->withHeader('typ', 'JWT')
                 ->withClaim('scope', $scope)
                 ->permittedFor($audience)
                 ->expiresAt($issuedAt->modify('+20 minutes'))
@@ -50,14 +47,18 @@ class TokenGenerator
             $keyIdentifier = config('appstoreconnect.key_id');
             $issuerIdentifier = config('appstoreconnect.issuer_id');
             $privateKey = config('appstoreconnect.private_key');
-            $tokenGenerator = new TokenGenerator();
-            $token = $tokenGenerator->issue(
+
+            if (! is_string($keyIdentifier) || ! is_string($issuerIdentifier) || ! is_string($privateKey)) {
+                throw new \RuntimeException('App Store Connect credentials are not configured.');
+            }
+
+            $token = $this->issue(
                 keyIdentifier: $keyIdentifier,
                 issuer: $issuerIdentifier,
                 privateKey: $privateKey,
             );
+
             return $token->toString();
         });
     }
-
 }

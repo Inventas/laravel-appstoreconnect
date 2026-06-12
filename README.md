@@ -5,15 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/inventas/laravel-appstoreconnect/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/inventas/laravel-appstoreconnect/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/inventas/laravel-appstoreconnect.svg?style=flat-square)](https://packagist.org/packages/inventas/laravel-appstoreconnect)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-appstoreconnect.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-appstoreconnect)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+This package provides a Laravel-friendly Saloon SDK foundation for Apple's App Store Connect API. It includes JWT authentication helpers and an official OpenAPI specification file that can be used to generate typed Saloon requests and DTOs.
 
 ## Installation
 
@@ -21,13 +13,6 @@ You can install the package via composer:
 
 ```bash
 composer require inventas/laravel-appstoreconnect
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-appstoreconnect-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -40,20 +25,44 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'key_id' => env('APPSTORECONNECT_KEY_ID'),
+    'issuer_id' => env('APPSTORECONNECT_ISSUER_ID'),
+    'private_key' => env('APPSTORECONNECT_PRIVATE_KEY'),
+    'openapi_spec_path' => base_path('vendor/inventas/laravel-appstoreconnect/openapi.oas.json'),
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-appstoreconnect-views"
 ```
 
 ## Usage
 
 ```php
-$appStoreConnectKit = new Inventas\AppStoreConnectKit();
-echo $appStoreConnectKit->echoPhrase('Hello, Inventas!');
+use Inventas\AppStoreConnectKit\AppStoreConnector;
+
+$connector = new AppStoreConnector();
+$response = $connector->apps()->appsGetCollection();
+
+$apps = $response->json('data');
+```
+
+## Generating the SDK
+
+The package ships with Apple's `openapi.oas.json` specification. Maintainers can regenerate the Saloon SDK foundation in the `Inventas\AppStoreConnectKit\Api` namespace with:
+
+```bash
+composer generate-sdk
+```
+
+The generation script uses the Saloon SDK generator programmatically with package-specific DTO typing for nested objects, string-backed enum component references, primitive non-enum component references, request payloads, array item types, maps, and `oneOf` unions. It validates generated DTO constructor types, DTO PHPDoc, enum backing values, and endpoint parameter native types against the OpenAPI schema before writing files, preserves falsy query values while filtering nulls, models omitted optional DTO fields with Spatie `Optional`, orders required parameters during generation, and formats the SDK output. Generated files are disposable output in `src/Api`; typing improvements should be made in the code-generation classes, not by editing generated DTOs directly.
+
+To verify the generator output without writing files, run:
+
+```bash
+composer generate-sdk-dry
+```
+
+The generated SDK is expected to pass strict generated-code analysis:
+
+```bash
+./vendor/bin/phpstan analyse src/Api --level=max --memory-limit=2G --no-progress
 ```
 
 ## Testing

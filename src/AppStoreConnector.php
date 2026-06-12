@@ -2,15 +2,15 @@
 
 namespace Inventas\AppStoreConnectKit;
 
-use Inventas\AppStoreConnectKit\Connect\ConnectAuthenticator;
-use Saloon\Contracts\Authenticator;
-use Saloon\Http\Connector;
+use Inventas\AppStoreConnectKit\Api\AppStoreConnect;
+use Inventas\AppStoreConnectKit\JWT\TokenGenerator;
 
-class AppStoreConnector extends Connector
+class AppStoreConnector extends AppStoreConnect
 {
     public function __construct(
         protected AppStoreConnectEnvironment $environment = AppStoreConnectEnvironment::Production
     ) {
+        parent::__construct((new TokenGenerator)->token());
     }
 
     public function resolveBaseUrl(): string
@@ -24,10 +24,5 @@ class AppStoreConnector extends Connector
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];
-    }
-
-    protected function defaultAuth(): ?Authenticator
-    {
-        return new ConnectAuthenticator;
     }
 }

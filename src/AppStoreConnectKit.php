@@ -2,6 +2,4 @@
 
 namespace Inventas\AppStoreConnectKit;
 
-class AppStoreConnectKit
-{
-}
+class AppStoreConnectKit {}

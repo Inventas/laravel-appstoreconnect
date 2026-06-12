@@ -6,7 +6,7 @@ enum AppStoreConnectEnvironment
 {
     case Production;
 
-    public function url() : string
+    public function url(): string
     {
         return match ($this) {
             self::Production => 'https://api.appstoreconnect.apple.com/',

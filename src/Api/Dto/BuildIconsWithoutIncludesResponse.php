@@ -1,0 +1,22 @@
+<?php
+
+namespace Inventas\AppStoreConnectKit\Api\Dto;
+
+use Spatie\LaravelData\Data as SpatieData;
+use Spatie\LaravelData\Optional;
+
+/**
+ * BuildIconsWithoutIncludesResponse
+ */
+class BuildIconsWithoutIncludesResponse extends SpatieData
+{
+    /**
+     * @param  array<int, BuildIcon>  $data
+     */
+    public function __construct(
+        /** @var array<int, BuildIcon> */
+        public array $data,
+        public PagedDocumentLinks $links,
+        public PagingInformation|Optional $meta = new Optional,
+    ) {}
+}

@@ -1,19 +1,25 @@
 <?php
 
 use Inventas\AppStoreConnectKit\AppStoreConnector;
-use Inventas\AppStoreConnectKit\Connect\ListBuildsRequest;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
 
 test('list builds', function () {
+    MockClient::destroyGlobal();
 
-    $connector = new AppStoreConnector();
-    $request = new ListBuildsRequest();
+    MockClient::global([
+        MockResponse::make([
+            'data' => [],
+        ]),
+    ]);
 
-    $response = $connector->send($request);
+    $response = (new AppStoreConnector)->builds()->buildsGetCollection();
 
     expect($response->status())->toBe(200);
 
     $data = $response->json();
 
-//    dd($data);
+    expect($data)->toBe(['data' => []]);
 
+    MockClient::destroyGlobal();
 });

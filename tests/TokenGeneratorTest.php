@@ -8,9 +8,9 @@ it('can generate a token', function () {
     $issuerIdentifier = config('appstoreconnect.issuer_id');
     $privateKey = config('appstoreconnect.private_key');
 
-//    dd($privateKey);
+    //    dd($privateKey);
 
-    $tokenGenerator = new TokenGenerator();
+    $tokenGenerator = new TokenGenerator;
     $token = $tokenGenerator->issue(
         keyIdentifier: $keyIdentifier,
         issuer: $issuerIdentifier,
@@ -25,7 +25,7 @@ it('caches the token', function () {
 
     expect(cache()->has('appstoreconnect.token'))->toBeFalse();
 
-    $tokenGenerator = new TokenGenerator();
+    $tokenGenerator = new TokenGenerator;
     $token = $tokenGenerator->token();
 
     expect($token)->toBeString()->not()->toBeEmpty()
