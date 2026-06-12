@@ -6,8 +6,8 @@ use Crescat\SaloonSdkGenerator\Data\Generator\Endpoint;
 use Crescat\SaloonSdkGenerator\Data\Generator\GeneratedCode;
 use Crescat\SaloonSdkGenerator\Data\Generator\Method;
 use Crescat\SaloonSdkGenerator\Data\Generator\Parameter;
-use Inventas\AppStoreConnectKit\CodeGeneration\OpenApi\OpenApiRequestBodyTypeMap;
 use Inventas\AppStoreConnectKit\CodeGeneration\OpenApi\OpenApiParameterDocTypeMap;
+use Inventas\AppStoreConnectKit\CodeGeneration\OpenApi\OpenApiRequestBodyTypeMap;
 use Inventas\AppStoreConnectKit\CodeGeneration\PostProcessors\GeneratedCodeTypingPostProcessor;
 use Nette\PhpGenerator\PhpFile;
 
@@ -85,7 +85,7 @@ it('preserves false and zero values while removing nulls in generated optional d
             new GeneratedCode(requestClasses: [$fixture['file']]),
         );
 
-        expect((string) $fixture['file'])->toContain("static fn (mixed \$value): bool => \$value !== null");
+        expect((string) $fixture['file'])->toContain('static fn (mixed $value): bool => $value !== null');
     } finally {
         unlink($fixture['openApiFile']);
     }
@@ -128,8 +128,7 @@ function generatedParameterTypingFixture(
     string $nativeType,
     array $parameterSchema = ['type' => 'array', 'items' => ['type' => 'string']],
     bool $parameterRequired = true,
-): array
-{
+): array {
     $openApiFile = tempnam(sys_get_temp_dir(), 'openapi-postprocessor').'.json';
 
     file_put_contents($openApiFile, json_encode([

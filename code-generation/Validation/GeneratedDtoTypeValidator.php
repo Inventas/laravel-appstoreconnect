@@ -12,7 +12,6 @@ use Inventas\AppStoreConnectKit\CodeGeneration\OpenApi\OpenApiStringEnum;
 use Inventas\AppStoreConnectKit\CodeGeneration\OpenApi\OpenApiTypeResolver;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\EnumType;
-use Nette\PhpGenerator\PhpFile;
 use Spatie\LaravelData\Optional;
 
 class GeneratedDtoTypeValidator

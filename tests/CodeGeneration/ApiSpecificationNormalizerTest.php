@@ -1,6 +1,7 @@
 <?php
 
 use Crescat\SaloonSdkGenerator\Data\Generator\ApiSpecification;
+use Crescat\SaloonSdkGenerator\Data\Generator\Config;
 use Crescat\SaloonSdkGenerator\Data\Generator\Endpoint;
 use Crescat\SaloonSdkGenerator\Data\Generator\Method;
 use Crescat\SaloonSdkGenerator\Data\Generator\Parameter;
@@ -75,7 +76,7 @@ it('adds typed request body parameters from OpenAPI request bodies', function ()
 
     try {
         (new ApiSpecificationNormalizer(
-            OpenApiRequestBodyTypeMap::fromFile($openApiFile, config: new Crescat\SaloonSdkGenerator\Data\Generator\Config(
+            OpenApiRequestBodyTypeMap::fromFile($openApiFile, config: new Config(
                 connectorName: 'AppStoreConnect',
                 namespace: 'TestNamespace',
             )),
