@@ -9,6 +9,7 @@ All notable changes to `laravel-appstoreconnect` will be documented in this file
 - Omit unsupported empty scope and not-before JWT claims from App Store Connect authentication tokens.
 - Support App Store Connect JWT payloads for both team and individual API keys.
 - Support older `nette/php-generator` versions selected by the prefer-lowest CI matrix.
+- Require `lcobucci/jwt` 5.5 or newer for the JWT builder API used during token generation.
 
 ## 0.1.0 - 2026-06-12
 
