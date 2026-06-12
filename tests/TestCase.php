@@ -1,36 +1,35 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Inventas\AppStoreConnectKit\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Inventas\AppStoreConnectKit\AppStoreConnectKitServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VendorName\Skeleton\SkeletonServiceProvider;
 
 class TestCase extends Orchestra
 {
     protected function setUp(): void
     {
         parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            SkeletonServiceProvider::class,
+            AppStoreConnectKitServiceProvider::class,
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
-        $migration->up();
-        */
+        config()->set('appstoreconnect.key_id', 'TESTKEY123');
+        config()->set('appstoreconnect.issuer_id', '00000000-0000-0000-0000-000000000000');
+        config()->set('appstoreconnect.private_key', <<<'KEY'
+-----BEGIN EC PRIVATE KEY-----
+MHcCAQEEIEnVPQ1uHL9Y7EjbQfkk/sbWcxceJlQKvlSAbVKYKAWGoAoGCCqGSM49
+AwEHoUQDQgAECQBCkGbypi1rB5bN3rXHgVohifcZCyyP12GMstrGoKbH6kUZEr0s
+//dLJT4kV0xmMl2eSvj3C7ODBuZQZf0dnQ==
+-----END EC PRIVATE KEY-----
+KEY);
     }
 }

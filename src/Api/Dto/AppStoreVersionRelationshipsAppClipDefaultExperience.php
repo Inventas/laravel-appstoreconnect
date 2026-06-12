@@ -1,0 +1,17 @@
+<?php
+
+namespace Inventas\AppStoreConnectKit\Api\Dto;
+
+use Spatie\LaravelData\Data as SpatieData;
+use Spatie\LaravelData\Optional;
+
+/**
+ * AppStoreVersionRelationshipsAppClipDefaultExperience
+ */
+class AppStoreVersionRelationshipsAppClipDefaultExperience extends SpatieData
+{
+    public function __construct(
+        public RelationshipLinks|Optional $links = new Optional,
+        public AppStoreVersionRelationshipsAppClipDefaultExperienceData|Optional $data = new Optional,
+    ) {}
+}

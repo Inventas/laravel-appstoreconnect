@@ -1,0 +1,23 @@
+<?php
+
+namespace Inventas\AppStoreConnectKit\Api\Dto;
+
+/**
+ * UserRole
+ */
+enum UserRole: string
+{
+    case ADMIN = 'ADMIN';
+    case FINANCE = 'FINANCE';
+    case ACCOUNT_HOLDER = 'ACCOUNT_HOLDER';
+    case SALES = 'SALES';
+    case MARKETING = 'MARKETING';
+    case APP_MANAGER = 'APP_MANAGER';
+    case DEVELOPER = 'DEVELOPER';
+    case ACCESS_TO_REPORTS = 'ACCESS_TO_REPORTS';
+    case CUSTOMER_SUPPORT = 'CUSTOMER_SUPPORT';
+    case CREATE_APPS = 'CREATE_APPS';
+    case CLOUD_MANAGED_DEVELOPER_ID = 'CLOUD_MANAGED_DEVELOPER_ID';
+    case CLOUD_MANAGED_APP_DISTRIBUTION = 'CLOUD_MANAGED_APP_DISTRIBUTION';
+    case GENERATE_INDIVIDUAL_KEYS = 'GENERATE_INDIVIDUAL_KEYS';
+}

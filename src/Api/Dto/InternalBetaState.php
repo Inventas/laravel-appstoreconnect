@@ -1,0 +1,17 @@
+<?php
+
+namespace Inventas\AppStoreConnectKit\Api\Dto;
+
+/**
+ * InternalBetaState
+ */
+enum InternalBetaState: string
+{
+    case PROCESSING = 'PROCESSING';
+    case PROCESSING_EXCEPTION = 'PROCESSING_EXCEPTION';
+    case MISSING_EXPORT_COMPLIANCE = 'MISSING_EXPORT_COMPLIANCE';
+    case READY_FOR_BETA_TESTING = 'READY_FOR_BETA_TESTING';
+    case IN_BETA_TESTING = 'IN_BETA_TESTING';
+    case EXPIRED = 'EXPIRED';
+    case IN_EXPORT_COMPLIANCE_REVIEW = 'IN_EXPORT_COMPLIANCE_REVIEW';
+}
