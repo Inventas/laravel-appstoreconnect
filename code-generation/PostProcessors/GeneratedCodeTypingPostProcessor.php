@@ -142,7 +142,7 @@ class GeneratedCodeTypingPostProcessor implements PostProcessor
             $class->addImplement(HasBody::class);
         }
 
-        if (! $class->hasTrait(HasJsonBody::class)) {
+        if (! $this->classUsesTrait($class, HasJsonBody::class)) {
             $class->addTrait(HasJsonBody::class);
         }
 
@@ -154,6 +154,14 @@ class GeneratedCodeTypingPostProcessor implements PostProcessor
                 ->addUse(HasJsonBody::class)
                 ->addUse(PayloadSerializer::class);
         }
+    }
+
+    /**
+     * @param  class-string  $trait
+     */
+    private function classUsesTrait(ClassType $class, string $trait): bool
+    {
+        return array_key_exists($trait, $class->getTraits());
     }
 
     private function preserveFalsyArrayValues(ClassType $class, Method $method): void
