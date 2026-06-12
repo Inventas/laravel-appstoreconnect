@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-appstoreconnect` will be documented in this file.
 
+## Unreleased
+
+- Align GitHub Actions with the supported PHP 8.3 and Laravel 12/13 test matrix.
+
 ## 0.1.0 - 2026-06-12
 
 - Upgrade the package to current Saloon v4 packages and Laravel 12/13-compatible dependencies.
