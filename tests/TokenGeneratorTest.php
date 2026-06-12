@@ -1,7 +1,7 @@
 <?php
 
-use Inventas\AppStoreConnectKit\JWT\TokenGenerator;
 use Inventas\AppStoreConnectKit\JWT\AppStoreConnectKeyType;
+use Inventas\AppStoreConnectKit\JWT\TokenGenerator;
 
 it('can generate a token', function () {
 
